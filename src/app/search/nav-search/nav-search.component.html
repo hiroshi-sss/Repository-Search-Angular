@@ -1,0 +1,12 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h2 class="my-0 ml-3 mr-md-auto font-weight-bold">Search</h2>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <form class="form-inline mt-2 mt-md-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="リポジトリを検索" aria-label="Search" #searchName>
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="showSearch(searchName.value); searchName.value=''">
+          <span *ngIf="!(isLoading | async)">検索</span>
+          <span *ngIf="(isLoading | async)">検索中... <div class="spinner-border spinner-border-sm" role="status"></div></span>
+        </button>
+      </form>
+    </nav>
+</div>
