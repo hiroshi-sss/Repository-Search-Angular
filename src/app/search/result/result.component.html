@@ -1,19 +1,19 @@
-<h4>Search Result <span class="badge badge-secondary">{{ search$? search$.items.length : 0 }}</span></h4>
-<div *ngIf="!search$" class="card">
+<h4>Search Result <span class="badge badge-secondary">{{ searches? searches.items.length : 0 }}</span></h4>
+<div *ngIf="!searches" class="card">
     <div class="card-header text-muted">
         No Item.
     </div>
 </div>
-<div *ngIf="search$" class="card">
-    <ul *ngFor="let search of search$.items;index as i" class="list-group list-group-flush">
-        <li id="{{ i }}" class="list-group-item">
+<div *ngIf="searches" class="card">
+    <ul *ngFor="let search of searches.items;index as i" class="list-group list-group-flush">
+        <li class="list-group-item">
             <div class="row">
                 <div class="mr-auto ml-2"><h5>{{ search.full_name }}</h5></div>
                 <div class="ml-auto mr-2"><span class="badge badge-pill badge-dark">{{ search.watchers_count }}</span></div>
             </div>
                 <div class="row">
                 <div class="mr-auto ml-2 small"><p>{{ search.url }}</p></div>
-                <div class="ml-auto mr-2"><button type="button" class="btn btn-outline-success btn-sm">Select</button></div>
+                <div class="ml-auto mr-2"><button (click)="selectItems(i)" type="button" value="test" class="btn btn-outline-info btn-sm">Select</button></div>
             </div>
         </li>
     </ul>

@@ -12,28 +12,27 @@ export class ResultComponent implements OnInit {
 
   constructor(
     private service: HttpService) {
-     }
-    
+  }
+
   private subscription: Subscription;
-  public search$: any;
+  public searches: any;
+  public item: any[] = [];
+  value;
 
   ngOnInit() {
     this.subscription = this.service.search$.subscribe(
-      data => this.search$ = data
+      data => this.searches = data
     )
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
     this.subscription.unsubscribe();
   }
 
-  hoge() {
-    // this.search$.subscribe(
-    //   (data) => { this.search$ = data }
-    // )
-    console.log(this.search$)
+  selectItems(len: number) {
+    this.item.push(this.searches.items[len])
+    this.service.itemData(this.item);
+    this.service.hoge()
   }
 
 }
