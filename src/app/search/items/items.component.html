@@ -1,26 +1,27 @@
-<h4>Select Items <span class="badge badge-secondary">0</span></h4>
-<div class="card">
-  <div class="card-header">
-    No Item.
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-8"><h5>Example heading</h5></div>
-        <div class="col-4">
-          <span class="badge badge-pill badge-dark">TEST</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-8"><p>test</p></div>
-        <div class="col-4">
-          <button type="button" class="btn btn-outline-success btn-sm">
-            Success
-          </button>
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Vestibulum at eros</li>
-  </ul>
+<h4>Select Items <span class="badge badge-secondary">{{ item? item.length : 0 }}</span></h4>
+<div *ngIf="!item" class="card">
+    <div class="card-header text-muted">
+        No Item.
+    </div>
+</div>
+
+<div *ngIf="item" class="card">
+    <ul *ngFor="let item of item;index as i" class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="row">
+                <div class="mr-auto ml-2"><h5>{{ item.full_name }}</h5></div>
+                <div class="ml-auto mr-2"><span class="badge badge-pill badge-dark">{{ item.watchers_count }}</span></div>
+            </div>
+            <div class="row">
+              <div class="mr-auto ml-2 small"><p>{{ item.url }}</p></div>
+              <div class="ml-auto mr-2"><button type="button" (click)="deleteItem(i)" id="{{ i }}"  class="btn btn-outline-danger btn-sm">Unselect</button></div>
+            </div>
+            <div class="row">
+              <div class="mr-auto ml-2 small"><input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div>
+  <button type="button" class="btn btn-primary float-right mt-3" (click)="hoge()" disabled>Add to Favorites</button>
 </div>
