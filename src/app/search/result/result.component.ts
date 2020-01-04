@@ -13,11 +13,11 @@ export class ResultComponent implements OnInit {
   constructor(
     private service: HttpService) {
   }
-
+  // public isSelect: Subject<boolean[]> = this.service.isSelect;
   private subscription: Subscription;
   public searches: any;
   public item: any[] = [];
-  value;
+  public isSelect: boolean[] = [false];
 
   ngOnInit() {
     this.subscription = this.service.search$.subscribe(
@@ -25,14 +25,33 @@ export class ResultComponent implements OnInit {
     )
   }
 
+  ngDoCheck(): void {
+    this.test();
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  selectItems(len: number) {
+  selectItems(len: number): void {
     this.item.push(this.searches.items[len])
     this.service.itemData(this.item);
-    this.service.hoge()
+  }
+
+  test() {
+    if (this.searches !== undefined) {
+      for (let i = 0; i < this.searches.items.length; i++) {
+        for (let y = 0; y < this.item.length; y++) {
+          if (this.searches.items[i].id == this.item[y].id) {
+            this.isSelect[i] = true;
+          }
+          if (!this.isSelect) {
+            console.log("test")
+          }
+         }
+      }
+    }
+
   }
 
 }

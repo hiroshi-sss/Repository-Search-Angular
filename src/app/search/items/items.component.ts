@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/service/http.service';
 import { Subscription } from 'rxjs';
+import { CommonService } from 'src/app/service/common.service';
 
 @Component({
   selector: 'app-items',
@@ -10,7 +11,8 @@ import { Subscription } from 'rxjs';
 export class ItemsComponent implements OnInit {
 
   constructor(
-    private service: HttpService) {
+    private service: HttpService,
+    private common: CommonService) {
   }
 
   private subscription: Subscription;
@@ -36,7 +38,6 @@ export class ItemsComponent implements OnInit {
   }
   
   hoge() {
-    // console.log(this.item.length);
   }
 
   // selectItems(value: number) {
