@@ -10,11 +10,12 @@ import { Observable, Subject } from 'rxjs';
 export class HttpService {
 
   private repositoriesUrl: string = 'https://api.github.com/search/repositories?q=';
-  private search = new Subject<RepoItems[]>();
+  private searches = new Subject<RepoItems[]>();
+  private items = new Subject<RepoItems[]>();
 
-  public search$ = this.search.asObservable();
+  public item$ = this.items.asObservable();
+  public search$ = this.searches.asObservable();
   public isLoading = new Subject<boolean>();
-
 
   constructor(private http: HttpClient) { }
 
@@ -31,9 +32,13 @@ export class HttpService {
     this.isLoading.next(false);
   }
 
-  public searchData(hoge: any) {
-    console.log("OK");
-    this.search.next(hoge);
+  public searchData(searchName: RepoItems[]) {
+    this.searches.next(searchName);
   }
+
+  public itemData(itemName: RepoItems[]) {
+    this.items.next(itemName);
+  }
+
 
 }

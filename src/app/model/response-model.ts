@@ -1,6 +1,5 @@
 interface Repository {
     total_count: number,
-    incomplete_results: boolean,
     items: RepoItems[]
 }
 
@@ -9,5 +8,7 @@ interface RepoItems {
     node_id: string,
     name: string,
     full_name: string,
-    private: boolean
+    description: string,
+    url: string,
+    watchers_count: number,
 }

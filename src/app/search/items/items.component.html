@@ -1,26 +1,33 @@
-<h4>Select Items <span class="badge badge-secondary">0</span></h4>
-<div class="card">
-  <div class="card-header">
-    No Item.
+<h4>Select Items <span class="badge badge-secondary">{{ item? item.length : 0 }}</span></h4>
+<div *ngIf="!item" class="card">
+    <div class="card-header text-muted">
+        No Item.
+    </div>
+</div>
+
+<form #memoForm="ngForm" class="was-validated">
+  <div *ngIf="item" class="card">
+      <ul *ngFor="let item of item;index as i" class="list-group list-group-flush">
+          <li class="list-group-item">
+              <div class="row">
+                  <div class="mr-auto ml-2"><h5>{{ item.full_name }}</h5></div>
+                  <div class="ml-auto mr-2"><span class="badge badge-pill badge-dark">{{ item.watchers_count }}</span></div>
+              </div>
+              <div class="row">
+                <div class="mr-auto ml-2 small"><p>{{ item.url }}</p></div>
+                <div class="ml-auto mr-2"><button type="button" (click)="deleteItem(i)" id="delete_{{ i }}"  class="btn btn-outline-danger btn-sm">Unselect</button></div>
+              </div>
+              <div class="row">
+                <div class="mr-auto ml-2 small">
+                  <input type="text" class="form-control" id="memo_{{ i }}" name="{{ i }}" [(ngModel)]="memoForm.value[i]" #value="ngModel" maxlength="10" required>
+                  <div *ngIf="value.invalid" class="invalid-feedback">メモを入力してください。</div>
+                </div>
+              </div>
+          </li>
+      </ul>
   </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-8"><h5>Example heading</h5></div>
-        <div class="col-4">
-          <span class="badge badge-pill badge-dark">TEST</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-8"><p>test</p></div>
-        <div class="col-4">
-          <button type="button" class="btn btn-outline-success btn-sm">
-            Success
-          </button>
-        </div>
-      </div>
-    </li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Vestibulum at eros</li>
-  </ul>
+</form>
+
+<div>
+  <button type="button" class="btn btn-primary float-right mt-3" [ngClass]="{'disabled': !item}" [disabled]="memoForm.invalid" (click)="addFavorites(memoForm)">Add to Favorites</button>
 </div>

@@ -1,0 +1,8 @@
+li.select {
+    background-color: #8080805b;
+}
+
+.btn.disabled, .btn:disabled {
+    cursor: auto;
+    pointer-events: none;
+}
