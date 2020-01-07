@@ -40,8 +40,5 @@ export class HttpService {
     this.items.next(itemName);
   }
 
-  public hoge() {
-    console.log(this.items == this.searches);
-  }
 
 }
