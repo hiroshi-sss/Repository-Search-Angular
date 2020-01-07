@@ -1,20 +1,21 @@
-<h4>Favorites <span class="badge badge-secondary">0</span></h4>
-<div class="card">
-    <div class="card-header">
-       No Item.
-     </div>
-    <ul class="list-group list-group-flush">
+<h4>Favorites <span class="badge badge-secondary">{{ favorites? favorites.length : 0 }} / 10</span></h4>
+<div *ngIf="!favorites" class="card">
+    <div class="card-header text-muted">
+        No Item.
+    </div>
+</div>
+
+<div *ngIf="favorites" class="card">
+    <ul *ngFor="let favorite of favorites;index as i" class="list-group list-group-flush">
         <li class="list-group-item">
             <div class="row">
-                <div class="col-8"><h5>Example heading</h5></div>
-                <div class="col-4"><span class="badge badge-pill badge-dark">TEST</span></div>
+                <div class="mr-auto ml-2"><h5><span class="badge badge-info">{{ favorite.memo }}</span> {{ favorite.full_name }}</h5></div>
+                <div class="ml-auto mr-2"><span class="badge badge-pill badge-dark">{{ favorite.watchers_count }}</span></div>
             </div>
-                <div class="row">
-                <div class="col-8"><p>test</p></div>
-                <div class="col-4"><button type="button" class="btn btn-outline-success btn-sm">Success</button></div>
+            <div class="row">
+              <div class="mr-auto ml-2 small"><p>{{ favorite.url }}</p></div>
+              <div class="ml-auto mr-2"><button type="button" (click)="deleteFavorites(i)" id="{{ i }}"  class="btn btn-outline-danger btn-sm">Delete</button></div>
             </div>
         </li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Vestibulum at eros</li>
     </ul>
 </div>
