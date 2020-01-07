@@ -1,19 +1,26 @@
 <h4>Search Result <span class="badge badge-secondary">{{ searches? searches.items.length : 0 }}</span></h4>
-<div *ngIf="!searches" class="card">
+<div *ngIf="!searches || searches.items.length === 0" class="card">
     <div class="card-header text-muted">
         No Item.
     </div>
 </div>
-<div *ngIf="searches" class="card">
-    <ul *ngFor="let search of searches.items;index as i" class="list-group list-group-flush select">
-        <li class="list-group-item" [ngClass]="{'select disabled': isSelect[i]}">
+<div *ngIf="searches && searches?.items.length !== 0" class="card">
+    <ul *ngFor="let search of searches?.items;index as i" class="list-group list-group-flush">
+        <li class="list-group-item" [ngClass]="{'select disabled': isSelectFavorite[i] || isSelectItem[i]}">
             <div class="row">
-                <div class="mr-auto ml-2"><h5><span *ngIf="isSelect[i]">✔︎ </span>{{ search.full_name }} {{ isSelect[i] }}</h5></div>
+                <div class="mr-auto ml-2"><h5>
+                    <span *ngIf="isSelectFavorite[i] || isSelectItem[i]">
+                        <i [ngClass]="{'icon ion-md-star': isSelectFavorite[i], 'icon ion-md-checkmark': isSelectItem[i]}" class="mr-1"></i>
+                    </span>{{ search.full_name }}</h5></div>
                 <div class="ml-auto mr-2"><span class="badge badge-pill badge-dark">{{ search.watchers_count }}</span></div>
             </div>
                 <div class="row">
                 <div class="mr-auto ml-2 small"><p>{{ search.url }}</p></div>
-                <div class="ml-auto mr-2"><button (click)="selectItems(i)" type="button" class="btn btn-outline-info btn-sm" [ngClass]="{'select disabled': isSelect[i]}">Select</button></div>
+                <div class="ml-auto mr-2">
+                    <button *ngIf="!isSelectItem[i] && !isSelectFavorite[i]" [ngClass]="{'disabled': isMaxSelect}" (click)="selectItems(i)" type="button" class="btn btn-outline-info btn-sm">Select</button>
+                    <button *ngIf="isSelectFavorite[i] && !isSelectItem[i]" (click)="selectItems(i)" type="button" class="btn btn-secondary btn-sm active" disabled>Favorited</button>
+                    <button *ngIf="!isSelectFavorite[i] && isSelectItem[i]" (click)="selectItems(i)" type="button" class="btn btn-secondary btn-sm active" disabled>Selected</button>
+                </div>
             </div>
         </li>
     </ul>

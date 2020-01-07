@@ -14,6 +14,7 @@ export class NavSearchComponent implements OnInit {
 
   private subscription: Subscription;
   public searches: RepoItems[];
+  public errorMessage: string;
 
   constructor(private service: HttpService) { }
 
@@ -32,10 +33,16 @@ export class NavSearchComponent implements OnInit {
     this.service.show();
     this.service.onSearch(searchName)
       .subscribe(
-        (data) => { this.searches = data },
-        (err) => { console.log(err) },
+        (data) => { this.searches = data; },
+        (err) => {
+          console.log(err);
+          this.service.hide();
+          this.errorMessage = (err.statusText + 'のエラーが発生しました。再度検索してください。')
+        },
         () => {
-          this.service.hide(); this.service.searchData(this.searches);
+          this.errorMessage = '';
+          this.service.hide();
+          this.service.searchData(this.searches);
         }
       )
   }

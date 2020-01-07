@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavSearchComponent } from '../nav-search/nav-search.component';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { HttpService } from 'src/app/service/http.service';
 
 @Component({
@@ -13,11 +12,12 @@ export class ResultComponent implements OnInit {
   constructor(
     private service: HttpService) {
   }
-  // public isSelect: Subject<boolean[]> = this.service.isSelect;
   private subscription: Subscription;
   public searches: any;
   public item: any[] = [];
-  public isSelect: boolean[] = [false];
+  public isSelectItem: boolean[] = [false];
+  public isSelectFavorite: boolean[] = [false];
+  public isMaxSelect: boolean = false;
 
   ngOnInit() {
     this.subscription = this.service.search$.subscribe(
@@ -25,8 +25,9 @@ export class ResultComponent implements OnInit {
     )
   }
 
-  ngDoCheck(): void {
-    this.test();
+  ngAfterContentChecked(): void {
+    this.compareLogic();
+    this.lengthMax10()
   }
 
   ngOnDestroy(): void {
@@ -38,20 +39,50 @@ export class ResultComponent implements OnInit {
     this.service.itemData(this.item);
   }
 
-  test() {
-    if (this.searches !== undefined) {
+  compareLogic() {
+    if (this.searches) {
+      const checkFavorites = [];
+      const checkItems = [];
       for (let i = 0; i < this.searches.items.length; i++) {
-        for (let y = 0; y < this.item.length; y++) {
-          if (this.searches.items[i].id == this.item[y].id) {
-            this.isSelect[i] = true;
-          }
-          if (!this.isSelect) {
-            console.log("test")
-          }
-         }
+        const favorite = this.favoritesCompare(this.searches.items[i]);
+        const item = this.itemsCompare(this.searches.items[i]);
+        checkFavorites.push(favorite);
+        checkItems.push(item);
       }
+      this.isSelectFavorite = checkFavorites;
+      this.isSelectItem = checkItems;
     }
-
   }
 
+  itemsCompare(resultItem: any) {
+    let check = false;
+    for (const item of this.item) {
+      if (resultItem.id === item.id) {
+        check = true;
+        break;
+      }
+    }
+    return check;
+  }
+
+  favoritesCompare(resultItem: any) {
+    let check = false;
+    let jsonData: any[] = JSON.parse(localStorage.getItem('favorites')) || [];
+    for (const item of jsonData) {
+      if (resultItem.id === item.id) {
+        check = true;
+        break;
+      }
+    }
+    return check
+  }
+
+  lengthMax10() {
+    let jsonData: any[] = JSON.parse(localStorage.getItem('favorites')) || [];
+    if ((jsonData.length + this.item.length) === 10) {
+      return this.isMaxSelect = true;
+    } else {
+      return this.isMaxSelect = false;
+    }
+  }
 }
