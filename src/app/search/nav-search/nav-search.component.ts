@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/service/http.service';
+import { CommonService } from 'src/app/service/common.service';
 import { Observable, Subject, Subscription } from 'rxjs';
+import { RepoItems } from 'src/app/model/response-model';
 
 @Component({
   selector: 'app-nav-search',
@@ -10,17 +12,20 @@ import { Observable, Subject, Subscription } from 'rxjs';
 
 export class NavSearchComponent implements OnInit {
 
-  public isLoading: Subject<boolean> = this.service.isLoading;
+  public isLoading: Subject<boolean> = this.common.isLoading;
 
   private subscription: Subscription;
-  public searches: RepoItems[];
+  public searchList: RepoItems[];
   public errorMessage: string;
 
-  constructor(private service: HttpService) { }
+  constructor(
+    private service: HttpService,
+    private common: CommonService
+    ) { }
 
   ngOnInit() {
-    this.subscription = this.service.search$.subscribe(
-      data => this.searches = data
+    this.subscription = this.common.search$.subscribe(
+      data => this.searchList = data
     )
   }
 
@@ -30,19 +35,19 @@ export class NavSearchComponent implements OnInit {
 
   showSearch(searchName: string): Observable<RepoItems[]> {
     if (!searchName) { return; }
-    this.service.show();
+    this.common.isLoadingShow();
     this.service.onSearch(searchName)
       .subscribe(
-        (data) => { this.searches = data; },
+        (data) => { this.searchList = data; },
         (err) => {
           console.log(err);
-          this.service.hide();
-          this.errorMessage = (err.statusText + 'のエラーが発生しました。再度検索してください。')
+          this.common.isLoadingHide();
+          this.errorMessage = (err.statusText + 'が発生しました。再度検索してください。')
         },
         () => {
           this.errorMessage = '';
-          this.service.hide();
-          this.service.searchData(this.searches);
+          this.common.isLoadingHide();
+          this.common.searchData(this.searchList);
         }
       )
   }

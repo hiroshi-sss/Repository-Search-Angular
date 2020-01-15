@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/app/service/http.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms'
+import { CommonService } from 'src/app/service/common.service';
+import { RepoItems } from 'src/app/model/response-model';
 
 @Component({
   selector: 'app-items',
@@ -11,15 +12,19 @@ import { NgForm } from '@angular/forms'
 export class ItemsComponent implements OnInit {
 
   private subscription: Subscription;
-  public item: any[];
+  public itemList: RepoItems[];
 
   constructor(
-    private service: HttpService) {
+    private common: CommonService) {
+  }
+
+  trackItem(index, item) {
+    return item.id
   }
 
   ngOnInit() {
-    this.subscription = this.service.item$.subscribe(
-      data => this.item = data
+    this.subscription = this.common.item$.subscribe(
+      data => this.itemList = data
     )
   }
 
@@ -28,29 +33,26 @@ export class ItemsComponent implements OnInit {
   }
 
   deleteItem(len: number): void {
-    this.item.splice(len, 1);
-    this.service.itemData(this.item);
-    if (this.item.length === 0) {
-      delete this.item;
-    }
+    this.itemList.splice(len, 1);
+    this.common.itemData(this.itemList);
   }
 
   addFavorites(memo: NgForm, len: number) {
     let jsonData: any[] = JSON.parse(localStorage.getItem('favorites')) || [];
-    for (let i = 0; i < this.item.length; i++) {
-      this.item[i].memo = memo.value[i];
-      if (!this.checkId(jsonData, this.item[i])) {
-        jsonData.push(this.item[i]);
+    for (let i = 0; i < this.itemList.length; i++) {
+      this.itemList[i].memo = memo.value[i];
+      if (!this.checkId(jsonData, this.itemList[i])) {
+        jsonData.push(this.itemList[i]);
       }
     }
     localStorage.setItem('favorites', JSON.stringify(jsonData));
-    this.item.splice(len)
-    if (this.item.length === 0) {
-      delete this.item;
+    this.itemList.splice(len)
+    if (this.itemList.length === 0) {
+      delete this.itemList;
     }
   }
 
-  checkId(arr: any[], item: any) {
+  checkId(arr: RepoItems[], item: RepoItems) {
     if (arr === null || arr.length === 0) {
       return false;
     }
@@ -62,4 +64,10 @@ export class ItemsComponent implements OnInit {
     return false;
   }
 
+  checkShow(value: string): boolean {
+    if (value === null || value === undefined || value.length === 0) {
+      return true
+    }
+    return false
+  }
 }

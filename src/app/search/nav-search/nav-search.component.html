@@ -3,7 +3,7 @@
     <nav class="my-2 my-md-0 mr-md-3">
       <form class="form-inline mt-2 mt-md-0" onsubmit="return false;">
         <div *ngIf="errorMessage" class="alert alert-danger mr-3" role="alert">{{ errorMessage }}</div>
-        <input class="form-control mr-sm-2" type="text" placeholder="リポジトリを検索" aria-label="Search" #searchName>
+        <input class="form-control mr-sm-2" type="text" placeholder="リポジトリを検索" aria-label="Search" #searchName (keyup.enter)="showSearch(searchName.value); searchName.value=''">
         <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="showSearch(searchName.value); searchName.value=''">
           <span *ngIf="!(isLoading | async)">検索</span>
           <span *ngIf="(isLoading | async)">検索中... <div class="spinner-border spinner-border-sm" role="status"></div></span>

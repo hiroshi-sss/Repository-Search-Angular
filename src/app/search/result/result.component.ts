@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { HttpService } from 'src/app/service/http.service';
+import { CommonService } from 'src/app/service/common.service';
+import { RepoItems } from 'src/app/model/response-model';
 
 @Component({
   selector: 'app-result',
@@ -10,18 +11,23 @@ import { HttpService } from 'src/app/service/http.service';
 export class ResultComponent implements OnInit {
 
   constructor(
-    private service: HttpService) {
+    private common: CommonService) {
   }
   private subscription: Subscription;
-  public searches: any;
-  public item: any[] = [];
+  public searchList: any;
+  public item: RepoItems[] = [];
   public isSelectItem: boolean[] = [false];
   public isSelectFavorite: boolean[] = [false];
   public isMaxSelect: boolean = false;
 
   ngOnInit() {
-    this.subscription = this.service.search$.subscribe(
-      data => this.searches = data
+    this.subscription = this.common.search$.subscribe(
+      data => this.searchList = data
+    )
+    this.subscription = this.common.item$.subscribe(
+      data => {
+        this.item = data
+      }
     )
   }
 
@@ -35,17 +41,17 @@ export class ResultComponent implements OnInit {
   }
 
   selectItems(len: number): void {
-    this.item.push(this.searches.items[len])
-    this.service.itemData(this.item);
+    this.item.push(this.searchList.items[len])
+    this.common.itemData(this.item);
   }
 
   compareLogic() {
-    if (this.searches) {
+    if (this.searchList) {
       const checkFavorites = [];
       const checkItems = [];
-      for (let i = 0; i < this.searches.items.length; i++) {
-        const favorite = this.favoritesCompare(this.searches.items[i]);
-        const item = this.itemsCompare(this.searches.items[i]);
+      for (let i = 0; i < this.searchList.items.length; i++) {
+        const favorite = this.favoritesCompare(this.searchList.items[i]);
+        const item = this.itemsCompare(this.searchList.items[i]);
         checkFavorites.push(favorite);
         checkItems.push(item);
       }
@@ -54,7 +60,7 @@ export class ResultComponent implements OnInit {
     }
   }
 
-  itemsCompare(resultItem: any) {
+  itemsCompare(resultItem: RepoItems) {
     let check = false;
     for (const item of this.item) {
       if (resultItem.id === item.id) {
@@ -65,7 +71,7 @@ export class ResultComponent implements OnInit {
     return check;
   }
 
-  favoritesCompare(resultItem: any) {
+  favoritesCompare(resultItem: RepoItems) {
     let check = false;
     let jsonData: any[] = JSON.parse(localStorage.getItem('favorites')) || [];
     for (const item of jsonData) {
@@ -78,7 +84,7 @@ export class ResultComponent implements OnInit {
   }
 
   lengthMax10() {
-    let jsonData: any[] = JSON.parse(localStorage.getItem('favorites')) || [];
+    let jsonData: RepoItems[] = JSON.parse(localStorage.getItem('favorites')) || [];
     if ((jsonData.length + this.item.length) === 10) {
       return this.isMaxSelect = true;
     } else {
