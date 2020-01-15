@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CommonService } from 'src/app/service/common.service';
-import { RepoItems } from 'src/app/model/response-model';
+import { RepoItems, Repository } from 'src/app/model/response-model';
 
 @Component({
   selector: 'app-result',
@@ -14,7 +14,7 @@ export class ResultComponent implements OnInit {
     private common: CommonService) {
   }
   private subscription: Subscription;
-  public searchList: any;
+  public searchList: Repository;
   public item: RepoItems[] = [];
   public isSelectItem: boolean[] = [false];
   public isSelectFavorite: boolean[] = [false];

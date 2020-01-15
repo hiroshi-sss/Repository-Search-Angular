@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/service/http.service';
 import { CommonService } from 'src/app/service/common.service';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { RepoItems } from 'src/app/model/response-model';
+import { Repository } from 'src/app/model/response-model';
 
 @Component({
   selector: 'app-nav-search',
@@ -15,7 +15,7 @@ export class NavSearchComponent implements OnInit {
   public isLoading: Subject<boolean> = this.common.isLoading;
 
   private subscription: Subscription;
-  public searchList: RepoItems[];
+  public searchList: Repository;
   public errorMessage: string;
 
   constructor(
@@ -33,7 +33,7 @@ export class NavSearchComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  showSearch(searchName: string): Observable<RepoItems[]> {
+  showSearch(searchName: string): Observable<Repository> {
     if (!searchName) { return; }
     this.common.isLoadingShow();
     this.service.onSearch(searchName)
