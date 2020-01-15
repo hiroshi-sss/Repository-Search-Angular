@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RepoItems } from 'src/app/model/response-model';
 
 @Component({
   selector: 'app-favorites',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FavoritesComponent implements OnInit {
 
-  public favorites: any;
+  public favorites: RepoItems[];
   constructor() { }
 
   ngOnInit() {
