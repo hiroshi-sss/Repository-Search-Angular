@@ -1,6 +1,6 @@
 export class Repository {
     total_count: number
-    items: RepoItems
+    items: RepoItems[]
 }
 
 export class RepoItems {
