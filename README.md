@@ -28,31 +28,43 @@ npm install bootstrap --save
       - response.model
 
 ## 設計書
+
+1. DesignDocuments
 ![DesignDocuments](src/assets/img/DesignDocuments.jpg 'DesignDocuments')
+
+2. DetailedDesignDocuments
 ![DetailedDesignDocuments](src/assets/img/DetailedDesignDocuments.jpg 'DetailedDesignDocuments')
 
 ## 役割
 - app.component
-  親として子コンポーネントを４つ作成
-  子コンポーネントのサイズ処理などは、こちらで行っている。
+
+親として子コンポーネントを４つ作成
+子コンポーネントのサイズ処理などは、こちらで行っている。
 
 - nav-search.component
-  リポジトリ検索用のコンポーネント
+
+リポジトリ検索用のコンポーネント
 
 - reslut.component
-  検索されたデータを表示するコンポーネント
+
+検索されたデータを表示するコンポーネント
 
 - items.component
-  reslut.component で選択したデータを表示するコンポーネント
+
+reslut.component で選択したデータを表示するコンポーネント
 
 - favorites.component
-  items.component で追加したデータを表示するコンポーネント
+
+items.component で追加したデータを表示するコンポーネント
 
 - common.service
-   共通で使用するメソッド、データを管理をまとめたサービス
+
+共通で使用するメソッド、データを管理をまとめたサービス
 
 - http.service
-  http 通信が発生するものをまとめたサービス
+
+http 通信が発生するものをまとめたサービス
 
 - response.model
-  GitHubAPI のレスポンスで使用する値の型を定義しているもの
+
+GitHubAPI のレスポンスで使用する値の型を定義しているもの
