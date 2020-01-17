@@ -16,8 +16,8 @@ npm install bootstrap --save
 [スピナーの表示について](https://www.l08084.com/entry/2019/09/22/193345)
 
 ## 参考書籍
-Angular アプリケーションプログラミング
 ![Angular アプリケーションプログラミング画像](https://wings.msn.to/books/978-4-7741-9130-0/978-4-7741-9130-0.jpg 'Angular アプリケーションプログラミング')
+Angular アプリケーションプログラミング
 
 ## ディレクトリ構成
 - app.component
