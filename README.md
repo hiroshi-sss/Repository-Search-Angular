@@ -6,13 +6,19 @@ npm install bootstrap --save
 
 ## 参考サイト
 [Angular](https://angular.jp/)
+
 [RxJs](https://rxjs-dev.firebaseapp.com/)
+
 [Bootstrap4](https://getbootstrap.com/)
+
 [コンポーネント間の共有について](https://qiita.com/ksh-fthr/items/e43dd37bff2e51e95a59)
+
 [スピナーの表示について](https://www.l08084.com/entry/2019/09/22/193345)
 
 ## 参考書籍
 ![Angular アプリケーションプログラミング画像](https://wings.msn.to/books/978-4-7741-9130-0/978-4-7741-9130-0.jpg 'Angular アプリケーションプログラミング')
+
+Angular アプリケーションプログラミング
 
 ## ディレクトリ構成
 - app.component
@@ -39,7 +45,7 @@ npm install bootstrap --save
 - app.component
 
 親として子コンポーネントを４つ作成
-子コンポーネントのサイズ処理などは、こちらで行っている。
+子コンポーネントのレイアウトは、こちらのコンポーネントで調整
 
 - nav-search.component
 
@@ -63,7 +69,7 @@ items.component で追加したデータを表示するコンポーネント
 
 - http.service
 
-http 通信が発生するものをまとめたサービス
+http通信が発生するものをまとめたサービス
 
 - response.model
 
