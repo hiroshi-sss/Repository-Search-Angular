@@ -38,14 +38,14 @@ export class ItemsComponent implements OnInit {
   }
 
   addFavorites(memo: NgForm, len: number) {
-    let jsonData: any[] = JSON.parse(localStorage.getItem('favorites')) || [];
+    let jsonData: any[] = JSON.parse(localStorage.getItem('favoriteList')) || [];
     for (let i = 0; i < this.itemList.length; i++) {
       this.itemList[i].memo = memo.value[i];
       if (!this.checkId(jsonData, this.itemList[i])) {
         jsonData.push(this.itemList[i]);
       }
     }
-    localStorage.setItem('favorites', JSON.stringify(jsonData));
+    localStorage.setItem('favoriteList', JSON.stringify(jsonData));
     this.itemList.splice(len)
     if (this.itemList.length === 0) {
       delete this.itemList;

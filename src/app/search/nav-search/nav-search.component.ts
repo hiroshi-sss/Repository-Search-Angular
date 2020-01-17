@@ -42,7 +42,7 @@ export class NavSearchComponent implements OnInit {
         (err) => {
           console.log(err);
           this.common.isLoadingHide();
-          this.errorMessage = (err.statusText + 'が発生しました。再度検索してください。')
+          this.errorMessage = (`${err.statusText}が発生しました。再度検索してください。`)
         },
         () => {
           this.errorMessage = '';

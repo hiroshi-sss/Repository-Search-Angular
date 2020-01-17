@@ -15,7 +15,7 @@ export class ResultComponent implements OnInit {
   }
   private subscription: Subscription;
   public searchList: Repository;
-  public item: RepoItems[] = [];
+  public itemList: RepoItems[] = [];
   public isSelectItem: boolean[] = [false];
   public isSelectFavorite: boolean[] = [false];
   public isMaxSelect: boolean = false;
@@ -26,7 +26,7 @@ export class ResultComponent implements OnInit {
     )
     this.subscription = this.common.item$.subscribe(
       data => {
-        this.item = data
+        this.itemList = data
       }
     )
   }
@@ -41,8 +41,8 @@ export class ResultComponent implements OnInit {
   }
 
   selectItems(len: number): void {
-    this.item.push(this.searchList.items[len])
-    this.common.itemData(this.item);
+    this.itemList.push(this.searchList.items[len])
+    this.common.itemData(this.itemList);
   }
 
   compareLogic() {
@@ -51,9 +51,9 @@ export class ResultComponent implements OnInit {
       const checkItems = [];
       for (let i = 0; i < this.searchList.items.length; i++) {
         const favorite = this.favoritesCompare(this.searchList.items[i]);
-        const item = this.itemsCompare(this.searchList.items[i]);
+        const itemList = this.itemsCompare(this.searchList.items[i]);
         checkFavorites.push(favorite);
-        checkItems.push(item);
+        checkItems.push(itemList);
       }
       this.isSelectFavorite = checkFavorites;
       this.isSelectItem = checkItems;
@@ -62,7 +62,7 @@ export class ResultComponent implements OnInit {
 
   itemsCompare(resultItem: RepoItems) {
     let check = false;
-    for (const item of this.item) {
+    for (const item of this.itemList) {
       if (resultItem.id === item.id) {
         check = true;
         break;
@@ -73,7 +73,7 @@ export class ResultComponent implements OnInit {
 
   favoritesCompare(resultItem: RepoItems) {
     let check = false;
-    let jsonData: any[] = JSON.parse(localStorage.getItem('favorites')) || [];
+    let jsonData: any[] = JSON.parse(localStorage.getItem('favoriteList')) || [];
     for (const item of jsonData) {
       if (resultItem.id === item.id) {
         check = true;
@@ -84,8 +84,8 @@ export class ResultComponent implements OnInit {
   }
 
   lengthMax10() {
-    let jsonData: RepoItems[] = JSON.parse(localStorage.getItem('favorites')) || [];
-    if ((jsonData.length + this.item.length) === 10) {
+    let jsonData: RepoItems[] = JSON.parse(localStorage.getItem('favoriteList')) || [];
+    if ((jsonData.length + this.itemList.length) === 10) {
       return this.isMaxSelect = true;
     } else {
       return this.isMaxSelect = false;
