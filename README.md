@@ -63,7 +63,7 @@ items.component で追加したデータを表示するコンポーネント
 
 - http.service
 
-http 通信が発生するものをまとめたサービス
+http通信が発生するものをまとめたサービス
 
 - response.model
 
