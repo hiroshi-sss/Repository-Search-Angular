@@ -1,11 +1,11 @@
-<h4>Search Result <span class="badge badge-secondary">{{ searches? searches.items.length : 0 }}</span></h4>
-<div *ngIf="!searches || searches.items.length === 0" class="card">
+<h4>Search Result <span class="badge badge-secondary">{{ searchList? searchList.items.length : 0 }}</span></h4>
+<div *ngIf="!searchList || searchList.items.length === 0" class="card">
     <div class="card-header text-muted">
         No Item.
     </div>
 </div>
-<div *ngIf="searches && searches?.items.length !== 0" class="card">
-    <ul *ngFor="let search of searches?.items;index as i" class="list-group list-group-flush">
+<div *ngIf="searchList && searchList?.items.length !== 0" class="card">
+    <ul *ngFor="let search of searchList?.items;index as i" class="list-group list-group-flush">
         <li class="list-group-item" [ngClass]="{'select disabled': isSelectFavorite[i] || isSelectItem[i]}">
             <div class="row">
                 <div class="mr-auto ml-2"><h5>

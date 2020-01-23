@@ -1,13 +1,13 @@
-<h4>Select Items <span class="badge badge-secondary">{{ item? item.length : 0 }}</span></h4>
-<div *ngIf="!item" class="card">
+<h4>Select Items <span class="badge badge-secondary">{{ itemList? itemList.length : 0 }}</span></h4>
+<div *ngIf="!itemList || itemList.length === 0" class="card">
     <div class="card-header text-muted">
         No Item.
     </div>
 </div>
 
 <form #memoForm="ngForm" class="was-validated">
-  <div *ngIf="item" class="card">
-      <ul *ngFor="let item of item;index as i" class="list-group list-group-flush">
+  <div *ngIf="itemList && itemList.length > 0" class="card">
+      <ul *ngFor="let item of itemList;index as i" class="list-group list-group-flush">
           <li class="list-group-item">
               <div class="row">
                   <div class="mr-auto ml-2"><h5>{{ item.full_name }}</h5></div>
@@ -19,15 +19,14 @@
               </div>
               <div class="row">
                 <div class="mr-auto ml-2 small">
-                  <input type="text" class="form-control" id="memo_{{ i }}" name="{{ i }}" [(ngModel)]="memoForm.value[i]" #value="ngModel" maxlength="10" required>
-                  <div *ngIf="value.invalid" class="invalid-feedback">メモを入力してください。</div>
+                  <input type="text" class="form-control" id="memo_{{ i }}" name="{{ i }}" [(ngModel)]="memoForm.value[i]" maxlength="20" required>
+                  <div *ngIf="checkShow(item.memo)" class="invalid-feedback">メモを入力してください。</div>
                 </div>
               </div>
           </li>
       </ul>
   </div>
 </form>
-
 <div>
-  <button type="button" class="btn btn-primary float-right mt-3" [ngClass]="{'disabled': !item}" [disabled]="memoForm.invalid" (click)="addFavorites(memoForm)">Add to Favorites</button>
+  <button type="button" class="btn btn-primary float-right mt-3" [disabled]="memoForm.invalid || !itemList" (click)="addFavorites(memoForm)">Add to Favorites</button>
 </div>

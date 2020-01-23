@@ -1,12 +1,12 @@
-<h4>Favorites <span class="badge badge-secondary">{{ favorites? favorites.length : 0 }} / 10</span></h4>
-<div *ngIf="!favorites" class="card">
+<h4>Favorites <span class="badge badge-secondary">{{ favoriteList? favoriteList.length : 0 }} / 10</span></h4>
+<div *ngIf="!favoriteList" class="card">
     <div class="card-header text-muted">
         No Item.
     </div>
 </div>
 
-<div *ngIf="favorites" class="card">
-    <ul *ngFor="let favorite of favorites;index as i" class="list-group list-group-flush">
+<div *ngIf="favoriteList" class="card">
+    <ul *ngFor="let favorite of favoriteList;index as i" class="list-group list-group-flush">
         <li class="list-group-item">
             <div class="row">
                 <div class="mr-auto ml-2"><h5><span class="badge badge-info">{{ favorite.memo }}</span> {{ favorite.full_name }}</h5></div>

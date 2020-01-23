@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RepoItems } from 'src/app/model/response-model';
 
 @Component({
   selector: 'app-favorites',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FavoritesComponent implements OnInit {
 
-  public favorites: any;
+  public favoriteList: RepoItems[];
   constructor() { }
 
   ngOnInit() {
@@ -18,16 +19,16 @@ export class FavoritesComponent implements OnInit {
   }
 
   getFavorites() {
-    this.favorites = JSON.parse(localStorage.getItem('favorites'))
+    this.favoriteList = JSON.parse(localStorage.getItem('favoriteList'))
   }
 
   deleteFavorites(len: number) {
-    this.favorites.splice(len, 1);
-    if (this.favorites.length === 0) {
-      localStorage.removeItem('favorites')
-      delete this.favorites;
+    this.favoriteList.splice(len, 1);
+    if (this.favoriteList.length === 0) {
+      localStorage.removeItem('favoriteList')
+      delete this.favoriteList;
     } else {
-      localStorage.setItem('favorites', JSON.stringify(this.favorites));
+      localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
     }
   }
 
