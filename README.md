@@ -1,7 +1,10 @@
-# 解説資料
-RepositoriesSearchAPIAngularについて
+# RepositoriesSearchAPIAngularについて
+GitHubのAPIを使用し、リポジトリの検索を行うアプリケーションです。
 
-## 追加のパッケージ
+## 実行コマンド
+npm run start
+
+## 追加したパッケージ
 npm install bootstrap --save
 
 ## 参考サイト
@@ -36,10 +39,10 @@ Angular アプリケーションプログラミング
 ## 設計書
 
 1. DesignDocuments
-![DesignDocuments](src/assets/img/DesignDocuments.jpg 'DesignDocuments')
+[DesignDocuments](src/assets/img/DesignDocuments.jpg)
 
 2. DetailedDesignDocuments
-![DetailedDesignDocuments](src/assets/img/DetailedDesignDocuments.jpg 'DetailedDesignDocuments')
+[DetailedDesignDocuments](src/assets/img/DetailedDesignDocuments.jpg)
 
 ## 役割
 - app.component
