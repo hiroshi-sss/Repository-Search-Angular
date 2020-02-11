@@ -39,7 +39,7 @@ Angular アプリケーションプログラミング
 ## 設計書
 
 1. DesignDocuments
-[DesignDocuments](src/assets/img/DesignDocuments.jpg)
+![DesignDocuments](src/assets/img/DesignDocuments.jpg 'DesignDocuments')
 
 2. DetailedDesignDocuments
 [DetailedDesignDocuments](src/assets/img/DetailedDesignDocuments.jpg)
