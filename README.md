@@ -23,8 +23,6 @@ npm install bootstrap --save
 
 Angular アプリケーションプログラミング
 
-Angular アプリケーションプログラミング
-
 ## ディレクトリ構成
 - app.component
    - search
@@ -44,7 +42,7 @@ Angular アプリケーションプログラミング
 ![DesignDocuments](src/assets/img/DesignDocuments.jpg 'DesignDocuments')
 
 2. DetailedDesignDocuments
-![DetailedDesignDocuments](src/assets/img/DetailedDesignDocuments.jpg 'DetailedDesignDocuments')
+[DetailedDesignDocuments](src/assets/img/DetailedDesignDocuments.jpg)
 
 ## 役割
 - app.component
