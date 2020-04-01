@@ -1,7 +1,7 @@
 # RepositoriesSearchAPIAngularについて
 GitHubのAPIを使用し、リポジトリの検索を行うアプリケーションです。
 
-[使用方法](src/assets/gif/RepositorySearch.gif)
+![使用方法](src/assets/gif/RepositorySearch.gif)
 
 ## 実行コマンド
 npm run start
